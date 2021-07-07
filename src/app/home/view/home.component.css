@@ -1,0 +1,32 @@
+.home__container {
+  margin: 0 auto;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home__title {
+  text-align: center;
+}
+.home__load-button {
+  height: 36px;
+  background-color: tomato;
+  border: 0;
+  color: white;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: medium;
+}
+.home__load-button:hover {
+  background-color: #e84629;
+  cursor: pointer;
+}
+.home__load-button:disabled {
+  background-color: #c4c4c4;
+  color: #666;
+}
+
+.home__table {
+  padding: 8px 0;
+}

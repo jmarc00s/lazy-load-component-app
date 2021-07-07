@@ -1,0 +1,23 @@
+<div class="home__container">
+  <h1 class="home__title">Lazy load component app</h1>
+  <div>
+    <button
+      (click)="loadTableComponent()"
+      [disabled]="tableComponentAlreadyLoaded"
+      class="home__load-button"
+    >
+      Load table component
+    </button>
+
+    <button
+      (click)="clearTableComponent()"
+      [disabled]="!tableComponentAlreadyLoaded"
+      class="home__load-button"
+    >
+      Clear table component
+    </button>
+  </div>
+  <div class="home__table">
+    <ng-container #tableContainer></ng-container>
+  </div>
+</div>

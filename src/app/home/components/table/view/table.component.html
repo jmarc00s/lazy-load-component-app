@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Adress</th>
+    <th>Phone Number</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of dataSource">
+      <td>{{ data.name }}</td>
+      <td>{{ data.adress }}</td>
+      <td>{{ data.phoneNumber }}</td>
+      <td>
+        <button (click)="removeEvent.emit(data.id)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
