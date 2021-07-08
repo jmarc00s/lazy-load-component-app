@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { TableModel } from './components/table/model/table.model';
 import { TableComponent } from './components/table/table.component';
 import { take } from 'rxjs/operators';
+import { Compiler } from '@angular/core';
+import { CreateComponentDinamicallyService } from '../shared/services/create-component-dinamically.service';
 
 @Component({
   templateUrl: './view/home.component.html',
@@ -41,8 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private _cfr: ComponentFactoryResolver,
-    private _injector: Injector
+    private _createComponentService: CreateComponentDinamicallyService
   ) {}
 
   ngOnDestroy(): void {
@@ -54,20 +55,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   async loadTableComponent() {
     if (this.tableComponentAlreadyLoaded) return;
 
-    const { TableComponent } = await import(
-      './components/table/table.component'
+    const tableDefinition = await import('./components/table/table.component');
+
+    const factory = this._createComponentService.createComponent(
+      tableDefinition.TableModule,
+      this.tableContainer.injector,
+      tableDefinition.TableComponent
     );
 
-    const tableFactory = this._cfr.resolveComponentFactory(TableComponent);
-
-    const { instance } = this.tableContainer.createComponent(
-      tableFactory,
-      undefined,
-      this._injector
-    );
+    const { instance } = this.tableContainer.createComponent(factory);
 
     instance.dataSource = this._dataSource;
-
     this._configureRemoveEvent(instance);
   }
 
@@ -79,7 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       () => {},
       () => {
-        console.log('completou');
+        console.log('completed');
       }
     );
 
